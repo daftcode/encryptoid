@@ -54,7 +54,6 @@ module Encryptoid
 
   def self.crypt!(data, opts = {})
     cipher = init_cipher opts
-    cipher.padding = 0
     result = cipher.update data
     result << cipher.final
   end
