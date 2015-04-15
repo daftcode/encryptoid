@@ -1,34 +1,52 @@
 # Encryptoid
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/encryptoid`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Encryptoid uses OpenSSL to encrypt and decrypt data with a symmetric key.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'encryptoid'
+gem 'encryptoid', git: 'https://github.com/daftcode/encryptoid.git'
 ```
 
 And then execute:
 
     $ bundle
 
-Or install it yourself as:
+## Configuration
+Set a `salt` for AES encryption algorithm using a configuration block
 
-    $ gem install encryptoid
+    Encryptoid.configure do |config|
+        config.aes_salt = '1234567890'
+    end
 
 ## Usage
 
-TODO: Write usage instructions here
+### Create an encryption key and initialization vector
 
-## Development
+    key = Encryptoid.random_key   # generate random key
+    key = 'super_secret_key'      # or pass own key
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `bin/console` for an interactive prompt that will allow you to experiment.
+    iv = OpenSSL::Cipher.new(Encryptoid::AES_ALGORITHM).random_iv
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release` to create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+(remember to store your `key` and `iv` to be able to decrypt data)
+
+### Encryption:
+
+    Encryptoid.encrypt('private data', key: key, iv: iv)
+
+### Decryption:
+
+    Encryptoid.decrypt(encrypted_data, key: key, iv: iv)
+
+### File encryption:
+
+    Encryptoid.encrypt_file_in_chunks!('~/passwords.txt', chunk_size, key: key, iv: iv)
+
+### File decryption:
+
+    Encryptoid.decrypt_file('~/passwords.txt', key: key, iv: iv)
 
 ## Contributing
 

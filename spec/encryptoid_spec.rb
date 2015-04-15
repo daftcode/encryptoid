@@ -8,7 +8,7 @@ describe Encryptoid do
 
   let(:content) { 'test1234' }
   let(:key) { '54316453D4537635C415234BA4983' }
-  let(:options) { {key: key, iv: OpenSSL::Cipher.new('aes-256-cbc').random_iv} }
+  let(:options) { {key: key, iv: OpenSSL::Cipher.new(Encryptoid::AES_ALGORITHM).random_iv} }
 
   context 'encrypts and decrypts' do
     it 'reads encoded contents' do

@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Maciej Głowacki", "Jan Grodowski", "Patryk Pastewski"]
   spec.email         = ["maciej.glowacki@daftcode.pl", "jan.grodowski@daftcode.pl", "patryk.pastewski@daftcode.pl"]
 
-  spec.summary       = %q{Encyptoids encrypts data using symmetric key to make it encrypted. It also decrypts them.}
+  spec.summary       = %q{Encryptoid uses OpenSSL to encrypt and decrypt data with symmetric key.}
   spec.homepage      = "http://daftco.de"
   spec.license       = "MIT"
 
